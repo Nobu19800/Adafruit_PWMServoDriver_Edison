@@ -48,8 +48,8 @@ static const char* adafruitpwmservodriveredison_spec[] =
 adafruitpwmservodriveredison::adafruitpwmservodriveredison(RTC::Manager* manager)
     // <rtc-template block="initializer">
   : RTC::DataFlowComponentBase(manager),
-    m_inIn("in", m_in),
-    m_outOut("out", m_out)
+    m_inIn("in", m_in)
+    //m_outOut("out", m_out)
 
     // </rtc-template>
 {
@@ -75,7 +75,7 @@ RTC::ReturnCode_t adafruitpwmservodriveredison::onInitialize()
   addInPort("in", m_inIn);
   
   // Set OutPort buffer
-  addOutPort("out", m_outOut);
+  //addOutPort("out", m_outOut);
   
   // Set service provider to Ports
   
@@ -114,7 +114,10 @@ RTC::ReturnCode_t adafruitpwmservodriveredison::onShutdown(RTC::UniqueId ec_id)
 	if(_pwm)
 	{
 		delete _pwm;
-  		delete _i2c;
+	}
+	if(_i2c)
+	{
+		delete _i2c;
 	}
 
   return RTC::RTC_OK;
@@ -123,14 +126,17 @@ RTC::ReturnCode_t adafruitpwmservodriveredison::onShutdown(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t adafruitpwmservodriveredison::onActivated(RTC::UniqueId ec_id)
 {
-	if(_pwm == NULL)
+	if(_i2c == NULL)
 	{
 		_i2c = new mraa::I2c(m_I2C_channel);
-		
-		_pwm = new  Adafruit_PWMServoDriver_Edison(_i2c, m_I2C_address);
-		_pwm->begin();
-		_pwm->setPWMFreq(50);
 	}
+	if(_pwm == NULL)
+	{
+		_pwm = new  Adafruit_PWMServoDriver_Edison(_i2c, m_I2C_address);
+		
+	}
+	_pwm->begin();
+	_pwm->setPWMFreq(50);
   return RTC::RTC_OK;
 }
 

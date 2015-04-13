@@ -1,4 +1,4 @@
-set(comp_srcs adafruitpwmservodriveredison.cpp Adafruit_PWMServoDriver_Edison.cpp )
+set(comp_srcs adafruitpwmservodriveredison.cpp Adafruit_PWMServoDriver_Edison.cpp i2c_smf.cpp )
 set(standalone_srcs adafruitpwmservodriveredisonComp.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)

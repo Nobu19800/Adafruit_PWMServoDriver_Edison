@@ -11,10 +11,11 @@ Adafruit_PWMServoDriver_Edison::Adafruit_PWMServoDriver_Edison(mraa::I2c *i2c, u
 	_i2c = i2c;
 	_i2caddr = addr;
 	
+	_smf = new i2c_smf();
 }
 
 Adafruit_PWMServoDriver_Edison::~Adafruit_PWMServoDriver_Edison() {
-	
+	delete _smf;
 }
 
 void Adafruit_PWMServoDriver_Edison::begin(void) {
@@ -24,7 +25,10 @@ void Adafruit_PWMServoDriver_Edison::begin(void) {
 }
 
 void Adafruit_PWMServoDriver_Edison::reset(void) {
-	write8(PCA9685_MODE1, 0x0);
+	_smf->sem_lock();
+	_i2c->address(_i2caddr);
+	_i2c->writeReg(PCA9685_MODE1, 0x0);
+	_smf->sem_unlock();
 }
 
 
@@ -38,16 +42,18 @@ void Adafruit_PWMServoDriver_Edison::setPWMFreq(float freq) {
 
   uint8_t prescale = floor(prescaleval + 0.5);
   
-  
-  uint8_t oldmode = read8(PCA9685_MODE1);
+  _smf->sem_lock();
+  _i2c->address(_i2caddr);
+  uint8_t oldmode = _i2c->readReg(PCA9685_MODE1);
   uint8_t newmode = (oldmode&0x7F) | 0x10;
 
   
-  write8(PCA9685_MODE1, newmode);
-  write8(PCA9685_PRESCALE, prescale);
-  write8(PCA9685_MODE1, oldmode);
+  _i2c->writeReg(PCA9685_MODE1, newmode);
+  _i2c->writeReg(PCA9685_PRESCALE, prescale);
+  _i2c->writeReg(PCA9685_MODE1, oldmode);
   usleep(5000);
-  write8(PCA9685_MODE1, oldmode | 0xa1);
+  _i2c->writeReg(PCA9685_MODE1, oldmode | 0xa1);
+  _smf->sem_unlock();
 }
 
 void Adafruit_PWMServoDriver_Edison::setPWM(uint8_t num, uint16_t on, uint16_t off) {
@@ -58,9 +64,10 @@ void Adafruit_PWMServoDriver_Edison::setPWM(uint8_t num, uint16_t on, uint16_t o
 	data[2] = on>>8;
 	data[3] = off;
 	data[4] = off>>8;
+	_smf->sem_lock();
 	_i2c->address(_i2caddr);
 	_i2c->write(data,5);
-  
+ 	_smf->sem_unlock();
 }
 
 
@@ -96,20 +103,4 @@ void Adafruit_PWMServoDriver_Edison::setPin(uint8_t num, uint16_t val, bool inve
   }
 }
 
-uint8_t Adafruit_PWMServoDriver_Edison::read8(uint8_t addr) {
-	_i2c->address(_i2caddr);
-	
-	_i2c->writeByte(addr);
-	
-	
 
-  	return _i2c->readByte();
-}
-
-void Adafruit_PWMServoDriver_Edison::write8(uint8_t addr, uint8_t d) {
-	_i2c->address(_i2caddr);
-	uint8_t data[2];
-	data[0] = addr;
-	data[1] = d;
-	_i2c->write(data,2);
-}

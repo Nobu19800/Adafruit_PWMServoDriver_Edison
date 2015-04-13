@@ -252,10 +252,10 @@ class adafruitpwmservodriveredison
 
   // DataOutPort declaration
   // <rtc-template block="outport_declare">
-  TimedDoubleSeq m_out;
+  //TimedDoubleSeq m_out;
   /*!
    */
-  OutPort<TimedDoubleSeq> m_outOut;
+  //OutPort<TimedDoubleSeq> m_outOut;
   
   // </rtc-template>
 
@@ -276,7 +276,7 @@ class adafruitpwmservodriveredison
 
  private:
   mraa::I2c* _i2c;
-  bool i2cFlag;
+  
   Adafruit_PWMServoDriver_Edison *_pwm;
   // <rtc-template block="private_attribute">
   
