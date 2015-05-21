@@ -82,7 +82,7 @@ class adafruitpwmservodriveredison
    * 
    * 
    */
-  // virtual RTC::ReturnCode_t onFinalize();
+   virtual RTC::ReturnCode_t onFinalize();
 
   /***
    *

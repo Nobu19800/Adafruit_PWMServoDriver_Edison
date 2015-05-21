@@ -94,12 +94,20 @@ RTC::ReturnCode_t adafruitpwmservodriveredison::onInitialize()
   return RTC::RTC_OK;
 }
 
-/*
+
 RTC::ReturnCode_t adafruitpwmservodriveredison::onFinalize()
 {
+	if(_pwm)
+	{
+		delete _pwm;
+	}
+	if(_i2c)
+	{
+		delete _i2c;
+	}
   return RTC::RTC_OK;
 }
-*/
+
 
 /*
 RTC::ReturnCode_t adafruitpwmservodriveredison::onStartup(RTC::UniqueId ec_id)
@@ -111,14 +119,7 @@ RTC::ReturnCode_t adafruitpwmservodriveredison::onStartup(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t adafruitpwmservodriveredison::onShutdown(RTC::UniqueId ec_id)
 {
-	if(_pwm)
-	{
-		delete _pwm;
-	}
-	if(_i2c)
-	{
-		delete _i2c;
-	}
+	
 
   return RTC::RTC_OK;
 }
