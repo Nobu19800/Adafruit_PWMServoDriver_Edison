@@ -1,5 +1,5 @@
-#ifndef ADAFRUIT_PWMServoDriver_Edison_H
-#define ADAFRUIT_PWMServoDriver_Edison_H
+#ifndef Adafruit_PWMServoDriver_Edison_H
+#define Adafruit_PWMServoDriver_Edison_H
 
 #include <stdio.h>
 #include <mraa.hpp>

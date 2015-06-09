@@ -1,6 +1,6 @@
 // -*- C++ -*-
 /*!
- * @file adafruitpwmservodriveredisonComp.cpp
+ * @file AdafruitPWMServoDriverEdisonComp.cpp
  * @brief Standalone component
  * @date $Date$
  *
@@ -11,16 +11,16 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
-#include "adafruitpwmservodriveredison.h"
+#include "AdafruitPWMServoDriverEdison.h"
 
 
 void MyModuleInit(RTC::Manager* manager)
 {
-  adafruitpwmservodriveredisonInit(manager);
+  AdafruitPWMServoDriverEdisonInit(manager);
   RTC::RtcBase* comp;
 
   // Create a component
-  comp = manager->createComponent("adafruitpwmservodriveredison");
+  comp = manager->createComponent("AdafruitPWMServoDriverEdison");
 
   if (comp==NULL)
   {

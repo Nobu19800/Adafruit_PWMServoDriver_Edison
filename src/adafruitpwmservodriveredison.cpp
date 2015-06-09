@@ -7,7 +7,7 @@
  * $Id$
  */
 
-#include "adafruitpwmservodriveredison.h"
+#include "AdafruitPWMServoDriverEdison.h"
 
 #define SERVOMIN  160 // this is the 'minimum' pulse length count (out of 4096)
 #define SERVOMAX  420 // this is the 'maximum' pulse length count (out of 4096)
@@ -15,10 +15,10 @@
 
 // Module specification
 // <rtc-template block="module_spec">
-static const char* adafruitpwmservodriveredison_spec[] =
+static const char* AdafruitPWMServoDriverEdison_spec[] =
   {
-    "implementation_id", "adafruitpwmservodriveredison",
-    "type_name",         "adafruitpwmservodriveredison",
+    "implementation_id", "AdafruitPWMServoDriverEdison",
+    "type_name",         "AdafruitPWMServoDriverEdison",
     "description",       "Adafruit PWM ServoDriver Component",
     "version",           "1.0.0",
     "vendor",            "Miyamoto Nobuhiko",
@@ -45,7 +45,7 @@ static const char* adafruitpwmservodriveredison_spec[] =
  * @brief constructor
  * @param manager Maneger Object
  */
-adafruitpwmservodriveredison::adafruitpwmservodriveredison(RTC::Manager* manager)
+AdafruitPWMServoDriverEdison::AdafruitPWMServoDriverEdison(RTC::Manager* manager)
     // <rtc-template block="initializer">
   : RTC::DataFlowComponentBase(manager),
     m_inIn("in", m_in)
@@ -61,13 +61,13 @@ adafruitpwmservodriveredison::adafruitpwmservodriveredison(RTC::Manager* manager
 /*!
  * @brief destructor
  */
-adafruitpwmservodriveredison::~adafruitpwmservodriveredison()
+AdafruitPWMServoDriverEdison::~AdafruitPWMServoDriverEdison()
 {
 }
 
 
 
-RTC::ReturnCode_t adafruitpwmservodriveredison::onInitialize()
+RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onInitialize()
 {
   // Registration: InPort/OutPort/Service
   // <rtc-template block="registration">
@@ -95,7 +95,7 @@ RTC::ReturnCode_t adafruitpwmservodriveredison::onInitialize()
 }
 
 
-RTC::ReturnCode_t adafruitpwmservodriveredison::onFinalize()
+RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onFinalize()
 {
 	if(_pwm)
 	{
@@ -110,14 +110,14 @@ RTC::ReturnCode_t adafruitpwmservodriveredison::onFinalize()
 
 
 /*
-RTC::ReturnCode_t adafruitpwmservodriveredison::onStartup(RTC::UniqueId ec_id)
+RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onStartup(RTC::UniqueId ec_id)
 {
   return RTC::RTC_OK;
 }
 */
 
 
-RTC::ReturnCode_t adafruitpwmservodriveredison::onShutdown(RTC::UniqueId ec_id)
+RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onShutdown(RTC::UniqueId ec_id)
 {
 	
 
@@ -125,7 +125,7 @@ RTC::ReturnCode_t adafruitpwmservodriveredison::onShutdown(RTC::UniqueId ec_id)
 }
 
 
-RTC::ReturnCode_t adafruitpwmservodriveredison::onActivated(RTC::UniqueId ec_id)
+RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onActivated(RTC::UniqueId ec_id)
 {
 	if(_i2c == NULL)
 	{
@@ -142,13 +142,13 @@ RTC::ReturnCode_t adafruitpwmservodriveredison::onActivated(RTC::UniqueId ec_id)
 }
 
 
-RTC::ReturnCode_t adafruitpwmservodriveredison::onDeactivated(RTC::UniqueId ec_id)
+RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onDeactivated(RTC::UniqueId ec_id)
 {
   return RTC::RTC_OK;
 }
 
 
-RTC::ReturnCode_t adafruitpwmservodriveredison::onExecute(RTC::UniqueId ec_id)
+RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onExecute(RTC::UniqueId ec_id)
 {
   if(m_inIn.isNew())
   {
@@ -165,35 +165,35 @@ RTC::ReturnCode_t adafruitpwmservodriveredison::onExecute(RTC::UniqueId ec_id)
 }
 
 /*
-RTC::ReturnCode_t adafruitpwmservodriveredison::onAborting(RTC::UniqueId ec_id)
+RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onAborting(RTC::UniqueId ec_id)
 {
   return RTC::RTC_OK;
 }
 */
 
 /*
-RTC::ReturnCode_t adafruitpwmservodriveredison::onError(RTC::UniqueId ec_id)
+RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onError(RTC::UniqueId ec_id)
 {
   return RTC::RTC_OK;
 }
 */
 
 /*
-RTC::ReturnCode_t adafruitpwmservodriveredison::onReset(RTC::UniqueId ec_id)
+RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onReset(RTC::UniqueId ec_id)
 {
   return RTC::RTC_OK;
 }
 */
 
 /*
-RTC::ReturnCode_t adafruitpwmservodriveredison::onStateUpdate(RTC::UniqueId ec_id)
+RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onStateUpdate(RTC::UniqueId ec_id)
 {
   return RTC::RTC_OK;
 }
 */
 
 /*
-RTC::ReturnCode_t adafruitpwmservodriveredison::onRateChanged(RTC::UniqueId ec_id)
+RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onRateChanged(RTC::UniqueId ec_id)
 {
   return RTC::RTC_OK;
 }
@@ -204,12 +204,12 @@ RTC::ReturnCode_t adafruitpwmservodriveredison::onRateChanged(RTC::UniqueId ec_i
 extern "C"
 {
  
-  void adafruitpwmservodriveredisonInit(RTC::Manager* manager)
+  void AdafruitPWMServoDriverEdisonInit(RTC::Manager* manager)
   {
-    coil::Properties profile(adafruitpwmservodriveredison_spec);
+    coil::Properties profile(AdafruitPWMServoDriverEdison_spec);
     manager->registerFactory(profile,
-                             RTC::Create<adafruitpwmservodriveredison>,
-                             RTC::Delete<adafruitpwmservodriveredison>);
+                             RTC::Create<AdafruitPWMServoDriverEdison>,
+                             RTC::Delete<AdafruitPWMServoDriverEdison>);
   }
   
 };

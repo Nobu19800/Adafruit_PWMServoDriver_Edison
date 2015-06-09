@@ -1,6 +1,6 @@
 // -*- C++ -*-
 /*!
- * @file  adafruitpwmservodriveredison.h
+ * @file  AdafruitPWMServoDriverEdison.h
  * @brief Adafruit PWM ServoDriver Component
  * @date  $Date$
  *
@@ -35,11 +35,11 @@
 using namespace RTC;
 
 /*!
- * @class adafruitpwmservodriveredison
+ * @class AdafruitPWMServoDriverEdison
  * @brief Adafruit PWM ServoDriver Component
  *
  */
-class adafruitpwmservodriveredison
+class AdafruitPWMServoDriverEdison
   : public RTC::DataFlowComponentBase
 {
  public:
@@ -47,12 +47,12 @@ class adafruitpwmservodriveredison
    * @brief constructor
    * @param manager Maneger Object
    */
-  adafruitpwmservodriveredison(RTC::Manager* manager);
+  AdafruitPWMServoDriverEdison(RTC::Manager* manager);
 
   /*!
    * @brief destructor
    */
-  ~adafruitpwmservodriveredison();
+  ~AdafruitPWMServoDriverEdison();
 
   // <rtc-template block="public_attribute">
   
@@ -291,7 +291,7 @@ class adafruitpwmservodriveredison
 
 extern "C"
 {
-  DLL_EXPORT void adafruitpwmservodriveredisonInit(RTC::Manager* manager);
+  DLL_EXPORT void AdafruitPWMServoDriverEdisonInit(RTC::Manager* manager);
 };
 
 #endif // ADAFRUITPWMSERVODRIVEREDISON_H

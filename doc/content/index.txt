@@ -1,4 +1,4 @@
-adafruitpwmservodriveredisonName - English
+AdafruitPWMServoDriverEdisonName - English
 ========================
 
 .. toctree::
@@ -19,7 +19,7 @@ For a full list of classes and functions, see the `API documentation`_.
 Requirements
 ============
 
-adafruitpwmservodriveredison uses the `CMake build system`. You will need at least version
+AdafruitPWMServoDriverEdison uses the `CMake build system`. You will need at least version
 2.8 to be able to build the component.
 
 .. _`CMAke build system`:
@@ -43,24 +43,24 @@ recommended method of installation in Windows.
   to take effect before using the component.
 
 The component can be launched by double-clicking the
-``adafruitpwmservodriveredisonComp`` executable. The ``adafruitpwmservodriveredison`` library
+``AdafruitPWMServoDriverEdisonComp`` executable. The ``AdafruitPWMServoDriverEdison`` library
 is available for loading into a manager, using the initialisation function
-``adafruitpwmservodriveredisonInit``.
+``AdafruitPWMServoDriverEdisonInit``.
 
 From source
 -----------
 
-Follow these steps to install adafruitpwmservodriveredison from source in any operating
+Follow these steps to install AdafruitPWMServoDriverEdison from source in any operating
 system:
 
 - Download the source, either from the repository or a source archive,
   and extract it somewhere::
 
-    tar -xvzf adafruitpwmservodriveredison-1.0.0.tar.gz
+    tar -xvzf AdafruitPWMServoDriverEdison-1.0.0.tar.gz
 
 - Change to the directory containing the extracted source::
 
-    cd adafruitpwmservodriveredison-1.0.0
+    cd AdafruitPWMServoDriverEdison-1.0.0
 
 - Create a directory called ``build``::
 
@@ -91,10 +91,10 @@ system:
 The component is now ready for use. See the next section for instructions on
 configuring the component.
 
-adafruitpwmservodriveredison can be launched in stand-alone mode by executing the
-``adafruitpwmservodriveredisonComp`` executable (installed into ``${prefix}/components/bin``).
-Alternatively, ``libadafruitpwmservodriveredison.so`` can be loaded into a manager, using the
-initialisation function ``adafruitpwmservodriveredisonInit``. This shared object can be found in
+AdafruitPWMServoDriverEdison can be launched in stand-alone mode by executing the
+``AdafruitPWMServoDriverEdisonComp`` executable (installed into ``${prefix}/components/bin``).
+Alternatively, ``libAdafruitPWMServoDriverEdison.so`` can be loaded into a manager, using the
+initialisation function ``AdafruitPWMServoDriverEdisonInit``. This shared object can be found in
 ``${prefix}/components/lib`` or ``${prefix}/components/lib64``.
 
 
@@ -126,7 +126,7 @@ Examples
 ========
 
 An example configuration file is provided in the
-``${prefix}/components/share/adafruitpwmservodriveredison/examples/conf/`` directory.
+``${prefix}/components/share/AdafruitPWMServoDriverEdison/examples/conf/`` directory.
 
 Changelog
 =========
