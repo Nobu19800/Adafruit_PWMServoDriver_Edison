@@ -22,7 +22,7 @@ static const char* AdafruitPWMServoDriverEdison_spec[] =
     "description",       "Adafruit PWM ServoDriver Component",
     "version",           "1.0.0",
     "vendor",            "Miyamoto Nobuhiko",
-    "category",          "TEST",
+    "category",          "Manipulator",
     "activity_type",     "PERIODIC",
     "kind",              "DataFlowComponent",
     "max_instance",      "1",
