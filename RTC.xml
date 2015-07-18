@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<rtc:RtcProfile rtc:version="0.2" rtc:id="RTC:Miyamoto Nobuhiko:TEST:AdafruitPWMServoDriverEdison:1.0.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="Adafruit_PWMServoDriver_Edison" rtc:updateDate="2015-03-23T23:54:40+09:00" rtc:creationDate="2015-03-23T23:50:26+09:00" rtc:version="1.0.0" rtc:vendor="Miyamoto Nobuhiko" rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1000.0" rtc:description="Adafruit PWM ServoDriver Component" rtc:category="TEST" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="STATIC" rtc:name="AdafruitPWMServoDriverEdison">
+<rtc:RtcProfile rtc:version="0.2" rtc:id="RTC:Miyamoto Nobuhiko:Manipulator:AdafruitPWMServoDriverEdison:1.0.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="Adafruit_PWMServoDriver_Edison" rtc:updateDate="2015-07-18T16:19:23.911+09:00" rtc:creationDate="2015-03-23T23:50:26+09:00" rtc:abstract="RCサーボへの目標角度をInPortから受信して、PCA9685搭載のデバイスにI2CでPWMのデューティー比を指令します。 http://robotarmrtc.iaigiri.com/" rtc:version="1.0.0" rtc:vendor="Miyamoto Nobuhiko" rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1000.0" rtc:description="Adafruit PWM ServoDriver Component" rtc:category="Manipulator" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="STATIC" rtc:name="AdafruitPWMServoDriverEdison">
+        <rtcDoc:Doc rtcDoc:reference="" rtcDoc:license="LGPL" rtcDoc:creator="" rtcDoc:algorithm="" rtcDoc:inout="" rtcDoc:description="RCサーボへの目標角度をInPortから受信して、PCA9685搭載のデバイスにI2CでPWMのデューティー比を指令します。 http://robotarmrtc.iaigiri.com/"/>
+        <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
+        <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
         <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
     </rtc:BasicInfo>
     <rtc:Actions>
@@ -29,6 +32,7 @@
                     </rtc:propertyIsBetween>
                 </rtc:ConstraintUnitType>
             </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="0&lt;=x&lt;=255" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="PCA9685のI2Cスレーブアドレス" rtcDoc:defaultValue="64" rtcDoc:dataname="I2C_address"/>
             <rtcExt:Properties rtcExt:value="spin." rtcExt:name="__widget__"/>
         </rtc:Configuration>
         <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="1" rtc:type="int" rtc:name="I2C_channel">
@@ -52,10 +56,17 @@
                     </rtc:Or>
                 </rtc:ConstraintUnitType>
             </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="(1,6)" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="I2Cポート番号" rtcDoc:defaultValue="1" rtcDoc:dataname="I2C_channel"/>
             <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
         </rtc:Configuration>
     </rtc:ConfigurationSet>
-    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedDoubleSeq" rtc:name="in" rtc:portType="DataInPort"/>
-    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedDoubleSeq" rtc:name="out" rtc:portType="DataOutPort"/>
-    <rtc:Language xsi:type="rtcExt:language_ext" rtc:kind="C++"/>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedDoubleSeq" rtc:name="in" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="rad" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="RTC::TimedDoubleSeq" rtcDoc:description="サーボモータの目標角度"/>
+    </rtc:DataPorts>
+    <rtc:Language xsi:type="rtcExt:language_ext" rtc:kind="C++">
+        <rtcExt:targets rtcExt:os="ubilinux" rtcExt:langVersion="New Version">
+            <rtcExt:cpus>Intel Edison</rtcExt:cpus>
+            <rtcExt:libraries rtcExt:other="https://github.com/intel-iot-devkit/mraa" rtcExt:version="0.7.3" rtcExt:name="mraa"/>
+        </rtcExt:targets>
+    </rtc:Language>
 </rtc:RtcProfile>
