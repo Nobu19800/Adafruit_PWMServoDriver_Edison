@@ -9,9 +9,9 @@
 
 #include "AdafruitPWMServoDriverEdison.h"
 
-#define SERVOMIN  160 // this is the 'minimum' pulse length count (out of 4096)
-#define SERVOMAX  420 // this is the 'maximum' pulse length count (out of 4096)
-#define PI 3.141592
+//#define SERVOMIN  160
+//#define SERVOMAX  420
+//#define PI 3.141592
 
 // Module specification
 // <rtc-template block="module_spec">
@@ -31,12 +31,20 @@ static const char* AdafruitPWMServoDriverEdison_spec[] =
     // Configuration variables
     "conf.default.I2C_address", "64",
     "conf.default.I2C_channel", "1",
+    "conf.default.servo_max", "420",
+    "conf.default.servo_min", "160",
+    "conf.default.angle_max", "3.141592",
     // Widget
     "conf.__widget__.I2C_address", "spin",
     "conf.__widget__.I2C_channel", "radio",
+    "conf.__widget__.servo_max", "spin",
+    "conf.__widget__.servo_min", "spin",
     // Constraints
-    "conf.__constraints__.I2C_address", "0<=x<=255",
+    "conf.__constraints__.I2C_address", "64<=x<=128",
     "conf.__constraints__.I2C_channel", "(1,6)",
+    "conf.__constraints__.servo_max", "0<x<4096",
+    "conf.__constraints__.servo_min", "0<x<4096",
+    "conf.__constraints__.angle_max", "0<=x<=6.283",
     ""
   };
 // </rtc-template>
@@ -89,6 +97,9 @@ RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onInitialize()
   // Bind variables and configuration variable
   bindParameter("I2C_address", m_I2C_address, "64");
   bindParameter("I2C_channel", m_I2C_channel, "1");
+  bindParameter("servo_max", m_servo_max, "420");
+  bindParameter("servo_min", m_servo_min, "160");
+  bindParameter("angle_max", m_angle_max, "3.141592");
   
   // </rtc-template>
   return RTC::RTC_OK;
@@ -133,8 +144,12 @@ RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onActivated(RTC::UniqueId ec_id)
 	}
 	if(_pwm == NULL)
 	{
-		_pwm = new  Adafruit_PWMServoDriver_Edison(_i2c, m_I2C_address);
+		_pwm = new  PCA9685(_i2c, m_I2C_address);
 		
+	}
+	else
+	{
+		_pwm->setAddr(m_I2C_address);
 	}
 	_pwm->begin();
 	_pwm->setPWMFreq(50);
@@ -156,7 +171,7 @@ RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onExecute(RTC::UniqueId ec_id)
 	
 	for(int i=0;i < m_in.data.length();i++)
 	{
-		uint16_t pulselen = SERVOMIN + (SERVOMAX - SERVOMIN)*m_in.data[i]/PI;
+		uint16_t pulselen = m_servo_min + (m_servo_max - m_servo_min)*m_in.data[i]/m_angle_max;
 		_pwm->setPWM(i,0,pulselen);
 	}
 	

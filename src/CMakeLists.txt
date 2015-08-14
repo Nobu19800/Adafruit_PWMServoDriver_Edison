@@ -1,4 +1,4 @@
-set(comp_srcs AdafruitPWMServoDriverEdison.cpp Adafruit_PWMServoDriver_Edison.cpp i2c_smf.cpp )
+set(comp_srcs AdafruitPWMServoDriverEdison.cpp PCA9685.cpp i2c_smf.cpp )
 set(standalone_srcs AdafruitPWMServoDriverEdisonComp.cpp)
 
 if (DEFINED OPENRTM_INCLUDE_DIRS)

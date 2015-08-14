@@ -1,5 +1,5 @@
-#ifndef Adafruit_PWMServoDriver_Edison_H
-#define Adafruit_PWMServoDriver_Edison_H
+#ifndef PCA9685_H
+#define PCA9685_H
 
 #include <stdio.h>
 #include <mraa.hpp>
@@ -24,16 +24,17 @@
 #define ALLLED_OFF_L 0xFC
 #define ALLLED_OFF_H 0xFD
 
-class Adafruit_PWMServoDriver_Edison
+class PCA9685
 {
 public:
-	Adafruit_PWMServoDriver_Edison(mraa::I2c *i2c, uint8_t addr = 0x40);
-	~Adafruit_PWMServoDriver_Edison();
+	PCA9685(mraa::I2c *i2c, uint8_t addr = 0x40);
+	~PCA9685();
 	void begin(void);
 	void reset(void);
 	void setPWMFreq(float freq);
 	void setPWM(uint8_t num, uint16_t on, uint16_t off);
 	void setPin(uint8_t num, uint16_t val, bool invert=false);
+	void setAddr(uint8_t addr = 0x40);
 	
 private:
 	uint8_t _i2caddr;

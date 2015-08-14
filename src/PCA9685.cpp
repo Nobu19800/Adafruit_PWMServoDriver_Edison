@@ -5,26 +5,35 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <math.h>
-#include "Adafruit_PWMServoDriver_Edison.h"
+#include "PCA9685.h"
 
-Adafruit_PWMServoDriver_Edison::Adafruit_PWMServoDriver_Edison(mraa::I2c *i2c, uint8_t addr) {
+PCA9685::PCA9685(mraa::I2c *i2c, uint8_t addr) {
 	_i2c = i2c;
 	_i2caddr = addr;
 	
 	_smf = new i2c_smf();
 }
 
-Adafruit_PWMServoDriver_Edison::~Adafruit_PWMServoDriver_Edison() {
+PCA9685::~PCA9685() {
 	delete _smf;
 }
 
-void Adafruit_PWMServoDriver_Edison::begin(void) {
+void PCA9685::setAddr(uint8_t addr)
+{
+	if(_i2caddr != addr)
+	{
+		reset();
+	}
+	_i2caddr = addr;
+}
+
+void PCA9685::begin(void) {
 	
 	
 	reset();
 }
 
-void Adafruit_PWMServoDriver_Edison::reset(void) {
+void PCA9685::reset(void) {
 	_smf->sem_lock();
 	_i2c->address(_i2caddr);
 	_i2c->writeReg(PCA9685_MODE1, 0x0);
@@ -32,7 +41,7 @@ void Adafruit_PWMServoDriver_Edison::reset(void) {
 }
 
 
-void Adafruit_PWMServoDriver_Edison::setPWMFreq(float freq) {
+void PCA9685::setPWMFreq(float freq) {
   
   freq *= 0.9;
   float prescaleval = 25000000;
@@ -56,7 +65,7 @@ void Adafruit_PWMServoDriver_Edison::setPWMFreq(float freq) {
   _smf->sem_unlock();
 }
 
-void Adafruit_PWMServoDriver_Edison::setPWM(uint8_t num, uint16_t on, uint16_t off) {
+void PCA9685::setPWM(uint8_t num, uint16_t on, uint16_t off) {
   
  	uint8_t data[5];
 	data[0] = LED0_ON_L+4*num;
@@ -71,7 +80,7 @@ void Adafruit_PWMServoDriver_Edison::setPWM(uint8_t num, uint16_t on, uint16_t o
 }
 
 
-void Adafruit_PWMServoDriver_Edison::setPin(uint8_t num, uint16_t val, bool invert)
+void PCA9685::setPin(uint8_t num, uint16_t val, bool invert)
 {
   
   val = (uint8_t)std::min((int)val, 4095);

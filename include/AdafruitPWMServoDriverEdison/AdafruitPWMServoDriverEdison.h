@@ -19,7 +19,7 @@
 #include <rtm/idl/ExtendedDataTypesSkel.h>
 #include <rtm/idl/InterfaceDataTypesSkel.h>
 
-#include "Adafruit_PWMServoDriver_Edison.h"
+#include "PCA9685.h"
 
 
 // Service implementation headers
@@ -240,6 +240,10 @@ class AdafruitPWMServoDriverEdison
   int m_I2C_channel;
   // </rtc-template>
 
+  double m_servo_max;
+  double m_servo_min;
+  double m_angle_max;
+
   // DataInPort declaration
   // <rtc-template block="inport_declare">
   TimedDoubleSeq m_in;
@@ -277,7 +281,7 @@ class AdafruitPWMServoDriverEdison
  private:
   mraa::I2c* _i2c;
   
-  Adafruit_PWMServoDriver_Edison *_pwm;
+  PCA9685 *_pwm;
   // <rtc-template block="private_attribute">
   
   // </rtc-template>
