@@ -100,7 +100,7 @@ RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onInitialize()
   bindParameter("servo_max", m_servo_max, "420");
   bindParameter("servo_min", m_servo_min, "160");
   bindParameter("angle_max", m_angle_max, "3.141592");
-  
+  _smf = new i2c_smf();
   // </rtc-template>
   return RTC::RTC_OK;
 }
@@ -114,8 +114,11 @@ RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onFinalize()
 	}
 	if(_i2c)
 	{
+		_smf->sem_lock();
 		delete _i2c;
+		_smf->sem_unlock();
 	}
+	delete _smf;
   return RTC::RTC_OK;
 }
 
@@ -140,11 +143,13 @@ RTC::ReturnCode_t AdafruitPWMServoDriverEdison::onActivated(RTC::UniqueId ec_id)
 {
 	if(_i2c == NULL)
 	{
+		_smf->sem_lock();
 		_i2c = new mraa::I2c(m_I2C_channel);
+		_smf->sem_unlock();
 	}
 	if(_pwm == NULL)
 	{
-		_pwm = new  PCA9685(_i2c, m_I2C_address);
+		_pwm = new  PCA9685(_i2c, _smf, m_I2C_address);
 		
 	}
 	else

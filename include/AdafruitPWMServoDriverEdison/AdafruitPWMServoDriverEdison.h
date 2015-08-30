@@ -280,7 +280,7 @@ class AdafruitPWMServoDriverEdison
 
  private:
   mraa::I2c* _i2c;
-  
+  i2c_smf *_smf;
   PCA9685 *_pwm;
   // <rtc-template block="private_attribute">
   
